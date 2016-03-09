@@ -4,5 +4,5 @@ from fmecango import views
 urlpatterns = [
 
     url(r'^$', 'fmecango.views.index', name='index'),
-    url(r'^(?P<slug>[\w-]+)/$', 'views.table', name='index'),
+    url(r'^(?P<slug>[\w-]+)/$', 'fmecango.views.table', name='table'),
 ]
