@@ -20,10 +20,12 @@ PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir
 ## set static path
 STATIC_PATH = os.path.join(PROJECT_PATH,'static')
 ## set database path
-DATABASE_PATH = os.path.join(PROJECT_PATH, 'fmeca.db')
+DATABASE_PATH = os.path.join(PROJECT_PATH, 'dbfmeca.db')
 # set template path
 TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
 
+# set template pack fro crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -46,6 +48,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'fmecango',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -64,7 +68,7 @@ ROOT_URLCONF = 'scs_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_PATH],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -96,7 +100,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-GB'
 
-TIME_ZONE = 'London/Europe'
+TIME_ZONE = 'Europe/London'
 
 USE_I18N = True
 
@@ -108,3 +112,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(STATIC_PATH),
+]
