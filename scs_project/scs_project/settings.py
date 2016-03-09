@@ -24,6 +24,8 @@ DATABASE_PATH = os.path.join(PROJECT_PATH, 'fmeca.db')
 # set template path
 TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
 
+print PROJECT_PATH
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -46,6 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'fmecango',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -64,7 +67,7 @@ ROOT_URLCONF = 'scs_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_PATH],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -96,7 +99,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-GB'
 
-TIME_ZONE = 'London/Europe'
+TIME_ZONE = 'Europe/London'
 
 USE_I18N = True
 
