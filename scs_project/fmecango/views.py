@@ -25,11 +25,14 @@ def table(request, slug):
             # handle component form
             component_form = ComponentForm(request.POST, prefix='component')
             if component_form.is_valid():
-                component_form.save()
+                comp =component_form.save(commit=False)
+                comp.table = table
+                comp.save()
                 # redirect to updated page
                 return redirect(reverse('table', args=[str(table.slug)]))
             else:
                 print "ERROR", component_form.errors
+                context_dict['component_error'] = True
             # remake form incase of errors
             failuremode_form = FailureModeForm(prefix='failuremode')
             
@@ -42,6 +45,7 @@ def table(request, slug):
                 return redirect(reverse('table', args=[str(table.slug)]))
             else:
                 print "ERROR", failuremode_form.errors
+                context_dict['failure_error'] = True
             # remake form incase of errors
             component_form = ComponentForm(prefix='component')
     else:
@@ -50,11 +54,12 @@ def table(request, slug):
         component_form = ComponentForm(prefix='component')
         
     # add forms to dict
+    failuremode_form.fields["component"].queryset = Component.objects.filter(table=table)
     context_dict['failuremode_form'] = failuremode_form
     context_dict['component_form'] = component_form
         
     # get the components and modes to show in table
-    context_dict['components'] = Component.objects.all()
+    context_dict['components'] = Component.objects.filter(table=table)
     
     return render_to_response('fmecango/table.html', context_dict, context)
   
@@ -77,8 +82,9 @@ def index(request):
             table = form.save(commit=False)
             
             # add image to diagram
-            if request.FILES['path']:
-              table.diagram = request.FILES['path']
+            files = request.FILES.get('diagram', False)
+            if files:
+                table.diagram = files
               
             # create the object
             table.save()

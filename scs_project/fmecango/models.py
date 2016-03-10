@@ -5,7 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Table(models.Model):
   name = models.CharField(max_length=128)
-  diagram = models.ImageField(null=True, blank=True)
+  diagram = models.ImageField(upload_to='diagrams/%Y/%m/%d/',null=True, blank=True)
   slug = models.SlugField()
   
   def save(self, *args, **kwargs):
@@ -32,17 +32,17 @@ class FailureMode(models.Model):
   effect= models.CharField(max_length=128)
   severity= models.IntegerField(
         validators=[
-            MaxValueValidator(100),
+            MaxValueValidator(10),
             MinValueValidator(1)
         ])
   occurence= models.IntegerField(
         validators=[
-            MaxValueValidator(100),
+            MaxValueValidator(10),
             MinValueValidator(1)
         ])
   detection= models.IntegerField(
         validators=[
-            MaxValueValidator(100),
+            MaxValueValidator(10),
             MinValueValidator(1)
         ])
   risk = models.IntegerField()

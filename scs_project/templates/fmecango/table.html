@@ -23,10 +23,10 @@
                 <th>Failure Mode</th>
                 <th>Cause of Failure</th>
                 <th>Effect of Failure</th>
-                <th>Severity</th>
-                <th>Occurence</th>
-                <th>Detection</th>
-                <th>Risk</th>
+                <th>Severity<a data-toggle="modal" data-target="#severityModal"><span class="glyphicon glyphicon-info-sign"></span></a></th>
+                <th>Occurence<a data-toggle="modal" data-target="#occurenceModal"><span class="glyphicon glyphicon-info-sign"></span></a></th>
+                <th>Detection<a data-toggle="modal" data-target="#detectionModal"><span class="glyphicon glyphicon-info-sign"></span></a></th>
+                <th>Risk<a data-toggle="modal" data-target="#riskModal"><span class="glyphicon glyphicon-info-sign"></span></a></th>
                 <th>Notes</th>
               </tr>
             </thead>
@@ -50,6 +50,14 @@
                 <tr>
                   <td>{{ component.name }}</td>
                   <td>{{ component.function }}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
               {% endfor %}
             {% endfor %}
@@ -60,10 +68,7 @@
         {% else %}
           <div class="col-md-12 well "><h3>No components have been added</h3>
         {% endif %}
-      
-    style
-    open modal on error
-    
+        
     <!-- Trigger the modal with a button -->
     <button type="button" class="btn btn-info btn-lg pull-left" data-toggle="modal" data-target="#componentModal">Add Component</button>
   
@@ -99,7 +104,7 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-8">
-                  <button type="submit" name="component" class="btn btn-default">Submit</button>
+                  <button type="submit" name="component" class="btn btn-primary">Submit</button>
                 </div>
               </div>
             </form>
@@ -107,6 +112,7 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
+          &nbsp;
         </div>
       </div>
     </div>
@@ -115,7 +121,7 @@
     
     {% if components %}
     <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#failureModal">Add Failure Mode</button>
+    <button type="button" class="btn btn-warning btn-lg pull-right" data-toggle="modal" data-target="#failureModal">Add Failure Mode</button>
   
     <!-- Modal -->
     <div id="failureModal" class="modal fade" role="dialog">
@@ -160,19 +166,19 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-4" for="pwd">Severity of Failure:</label>
+                <label class="control-label col-sm-4" for="pwd"><a data-toggle="modal" data-target="#severityModal"><span class="glyphicon glyphicon-info-sign"></span></a>&nbsp;Severity of Failure:</label>
                 <div class="col-sm-8">
                   {{ failuremode_form.severity }}{{ failuremode_form.severity.errors }}
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-4" for="pwd">Occurence of Failure:</label>
+                <label class="control-label col-sm-4" for="pwd"><a data-toggle="modal" data-target="#occurenceModal"><span class="glyphicon glyphicon-info-sign"></span></a>&nbsp;Occurence of Failure:</label>
                 <div class="col-sm-8">
                   {{ failuremode_form.occurence }}{{ failuremode_form.occurence.errors }}
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-4" for="pwd">Detection of Failure:</label>
+                <label class="control-label col-sm-4" for="pwd"><a data-toggle="modal" data-target="#detectionModal"><span class="glyphicon glyphicon-info-sign"></span></a>&nbsp;Detection of Failure:</label>
                 <div class="col-sm-8">
                   {{ failuremode_form.detection }}{{ failuremode_form.detection.errors }}
                 </div>
@@ -185,7 +191,7 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-8">
-                  <button type="submit" name="failuremode" class="btn btn-default">Submit</button>
+                  <button type="submit" name="failuremode" class="btn btn-default btn-primary">Submit</button>
                 </div>
               </div>
             </form>
@@ -194,12 +200,129 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
-    
       </div>
     </div>
     {% endif %}
-          </div>
+  </div>
+</div>
+
+
+  
+<!-- Modal -->
+<div id="severityModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Severity</h4>
+      </div>
+      <div class="modal-body">
+        <h5>Guage risk based on the following scale</h5>
+        <ol>
+          <li>None: No effect</li>
+          <li>Very Minor: Fit & finish or squeak & rattle item does not conform. Discriminating customers notice defect.</li>
+          <li>Minor: Fit & finish or squeak & rattle item does not conform. Average customers notice defect.</li>
+          <li>Very Low: Fit & finish or squeak & rattle item does not conform. Most customers notice defect.</li>
+          <li>Very Low: Fit & finish or squeak & rattle item does not conform. Most customers notice defect.</li>
+          <li>Moderate: Product is operable, but comfort or convenience item(s) are inoperable.</li>
+          <li>High: Product is operable, but at reduced level of performance. </li>
+          <li>Very High: Product is inoperable with loss of primary Function.</li>
+          <li>Hazardous with warning: Failure affects safe product operation or involves noncompliance with government regulation with warning.</li>
+          <li>Hazardous without warning: Very high severity ranking when a potential failure mode affects safe operation or involves non-compliance with a government regulation without warning.</li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">OK</button>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="occurenceModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Occurence</h4>
+      </div>
+      <div class="modal-body">
+        <h5>Guage occurence based on the following scale</h5>
+        <ol>
+          <li>Remote: Failure is unlikely - 1 in 1,500,000</li>
+          <li>Low: Relatively few failures - 1 in 150,000</li>
+          <li>Low: Relatively few failures - 1 in 15,000</li>
+          <li>Moderate: Occasional failures - 1 in 2,000</li>
+          <li>Moderate: Occasional failures - 1 in 400</li>
+          <li>Moderate: Occasional failures - 1 in 80</li>
+          <li>High: Repeated failures - 1 in 20</li>
+          <li>High: Repeated failures - 1 in 8</li>
+          <li>Very High: Failure almost inevitable - 1 in 3</li>
+          <li>Very High: Failure almost inevitable - 1 in 2</li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="detectionModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Detection</h4>
+      </div>
+      <div class="modal-body">
+        <h5>Guage detection based on the following scale</h5>
+        <ol>
+          <li>Almost Certain: Design Control will almost certainly detect a potential Cause of failure or subsequent Failure Mode</li>
+          <li>Very High: Very high chance the Design Control will detect a potential Cause of failure or subsequent Failure Mode</li>
+          <li>High: High chance the Design Control will detect a potential Cause of failure or subsequent Failure Mode</li>
+          <li>Moderately High: Moderately high chance the Design Control will detect a potential Cause of failure or subsequent Failure Mode</li>
+          <li>Moderate: Moderate chance the Design Control will detect a potential Cause of failure or subsequent Failure Mode</li>
+          <li>Low: Low chance the Design Control will detect a potential Cause of failure or subsequent Failure Mode</li>
+          <li>Very Low: Very low chance the Design Control will detect a potential Cause of failure or subsequent Failure Mode</li>
+          <li>Remote: Remote chance the Design Control will detect a potential Cause of failure or subsequent Failure Mode</li>
+          <li>Very Remote: Very remote chance the Design Control will detect a potential Cause of failure or subsequent Failure Mode</li>
+          <li>Absolute Uncertainty: Control does not detect a potential Cause of failure or subsequent FailureMode; or there is no Design Control</li>
+        </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="riskModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Risk</h4>
+      </div>
+      <div class="modal-body">
+        <h5>Risk is calculated as the risk priority number (severity x occurence x detection) which places it on a number line from 1-1000.</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
     
 {% endblock %}
     
@@ -218,4 +341,19 @@ $(document).ready(function() {
   } );
 } );
 </script>
+
+{% if failure_error %}
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#failureModal').modal('show');
+    });
+</script>
+{% elif component_error %}
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#componentModal').modal('show');
+    });
+</script>
+{% endif %}
+
 {% endblock %}
