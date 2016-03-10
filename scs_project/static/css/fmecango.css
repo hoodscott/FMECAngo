@@ -1,0 +1,10 @@
+div.dataTables_wrapper {
+        width: 100%;
+        margin: 0 auto;
+        table-layout: fixed;
+    }
+    
+#theTable{
+  table-layout: fixed;
+  word-break: break-all;
+}

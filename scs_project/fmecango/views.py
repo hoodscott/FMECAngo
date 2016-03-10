@@ -23,13 +23,9 @@ def table(request, slug):
         print 'posted'
         if 'component' in request.POST:
             # handle component form
-            print 'comp'
             component_form = ComponentForm(request.POST, prefix='component')
             if component_form.is_valid():
-                print 'valid'
-                component = component_form.save(commit=False)
-                component.table = table
-                component.save()
+                component_form.save()
                 # redirect to updated page
                 return redirect(reverse('table', args=[str(table.slug)]))
             else:
@@ -44,6 +40,8 @@ def table(request, slug):
                 failuremode_form.save()
                 # redirect to updated page
                 return redirect(reverse('table', args=[str(table.slug)]))
+            else:
+                print "ERROR", failuremode_form.errors
             # remake form incase of errors
             component_form = ComponentForm(prefix='component')
     else:
@@ -72,11 +70,18 @@ def index(request):
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
         # pass in instance of the record to be updated
-        form = TableForm(data=request.POST)
+        form = TableForm(request.POST, request.FILES)
         # If the two forms are valid...
         if form.is_valid():
-            # Save the form data to the database.
-            table = form.save()
+            # hold off on saving until the diagram is attached
+            table = form.save(commit=False)
+            
+            # add image to diagram
+            if request.FILES['path']:
+              table.diagram = request.FILES['path']
+              
+            # create the object
+            table.save()
             
             # redirect to new page
             return redirect(reverse('table', args=[str(table.slug)]))
