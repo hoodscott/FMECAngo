@@ -8,3 +8,8 @@ div.dataTables_wrapper {
   table-layout: fixed;
   word-break: break-all;
 }
+
+ul.errorlist {
+  color:firebrick;
+  list-style-type:none;
+}
