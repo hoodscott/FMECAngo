@@ -53,7 +53,7 @@ class FailureMode(models.Model):
   def save(self, *args, **kwargs):
     if not self.id:
       # Newly created object, so set risk as per calculation
-      self.risk = self.severity + self.occurence + self.detection
+      self.risk = self.severity * self.occurence * self.detection
 
     super(FailureMode, self).save(*args, **kwargs)
   
